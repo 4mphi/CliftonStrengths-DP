@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dane Pullen — CliftonStrengths</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --c1: #4a6fa5;
+    --c2: #4a9e6b;
+    --c3: #4a9e6b;
+    --c4: #4a9e6b;
+    --c5: #4a6fa5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  .header {
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .header-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .header-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .header-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 16px;
+    letter-spacing: 0.12em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .header-line {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.6s;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .card:hover { background: #15151f; border-color: rgba(255,255,255,0.14); }
+
+  .card:nth-child(1) { animation: slideIn 0.5s ease forwards 0.4s;  --accent: var(--c1); }
+  .card:nth-child(2) { animation: slideIn 0.5s ease forwards 0.52s; --accent: var(--c2); }
+  .card:nth-child(3) { animation: slideIn 0.5s ease forwards 0.64s; --accent: var(--c3); }
+  .card:nth-child(4) { animation: slideIn 0.5s ease forwards 0.76s; --accent: var(--c4); }
+  .card:nth-child(5) { animation: slideIn 0.5s ease forwards 0.88s; --accent: var(--c5); }
+
+  .card-accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .card-top {
+    display: grid;
+    grid-template-columns: 48px 1fr 1fr 1fr;
+    align-items: center;
+    padding: 28px 32px;
+  }
+
+  .card-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--accent);
+    line-height: 1;
+    padding-left: 12px;
+  }
+
+  .card-main { padding: 0 24px 0 8px; }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.04em;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .card-game, .card-song {
+    padding: 0 16px;
+    border-left: 1px solid var(--border);
+  }
+
+  .card-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    opacity: 0.8;
+  }
+
+  .card-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-value-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 300;
+  }
+
+  .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 5px 10px;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .play-btn:hover { background: var(--accent); color: #000; }
+  .play-btn svg { width: 10px; height: 10px; fill: currentColor; flex-shrink: 0; }
+
+  /* SoundCloud player panel */
+  .card-player {
+    display: none;
+    border-top: 1px solid var(--border);
+    background: #08080d;
+  }
+
+  .card-player.active { display: block; }
+
+  .player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .player-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .close-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+  }
+
+  .close-btn:hover { color: var(--text); }
+
+  .card-player iframe {
+    display: block;
+    width: 100%;
+    height: 166px;
+    border: none;
+  }
+
+  /* Insight */
+  .insight-block {
+    margin-top: 48px;
+    padding: 32px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1s;
+  }
+
+  .insight-block::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 28px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: var(--muted);
+    opacity: 0.2;
+    line-height: 1;
+  }
+
+  .insight-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .insight-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text);
+    font-weight: 300;
+    max-width: 680px;
+  }
+
+  .insight-text strong { color: #fff; font-weight: 600; }
+
+  .footer {
+    margin-top: 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 1.2s;
+  }
+
+  .footer-line { flex: 1; height: 1px; background: var(--border); }
+
+  .footer-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .legend {
+    margin-top: 32px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 1.3s;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .legend-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 680px) {
+    .card-top {
+      grid-template-columns: 40px 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 12px;
+      padding: 20px 20px 20px 16px;
+    }
+    .card-number { font-size: 28px; }
+    .card-main { grid-column: 2; padding: 0; }
+    .card-game { grid-column: 1 / -1; border-left: none; border-top: 1px solid var(--border); padding: 12px 0 0; }
+    .card-song { grid-column: 1 / -1; border-left: none; padding: 0; }
+    .header-line { display: none; }
+    .page { padding: 40px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="header-label">CliftonStrengths · Top 5 Profile</div>
+    <div class="header-name">Dane<br>Pullen</div>
+    <div class="header-sub">GALLUP ASSESSMENT · PROFESSIONAL DEVELOPMENT</div>
+    <div class="header-line">How I'm Wired</div>
+  </header>
+
+  <div class="cards">
+
+    <!-- 1. Relator -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-top">
+        <div class="card-number">01</div>
+        <div class="card-main">
+          <div class="card-title">Relator</div>
+          <div class="card-desc">Deep satisfaction in working hard with others toward a shared goal. Depth over breadth — always.</div>
+        </div>
+        <div class="card-game">
+          <div class="card-tag">🎮 Game</div>
+          <div class="card-value">Guild Wars 2</div>
+          <div class="card-value-sub">Built around long-term community & cooperation</div>
+        </div>
+        <div class="card-song">
+          <div class="card-tag">🎵 Track</div>
+          <div class="card-value">Fear Not This Night</div>
+          <div class="card-value-sub">GW2 OST — bonds that carry you through</div>
+          <button class="play-btn" onclick="togglePlayer(this, '100794098')">
+            <svg viewBox="0 0 16 16"><path d="M3 2l11 6-11 6z"/></svg>
+            Play Track
+          </button>
+        </div>
+      </div>
+      <div class="card-player">
+        <div class="player-header">
+          <span class="player-label">🎵 Now Playing</span>
+          <button class="close-btn" onclick="closePlayer(this)">✕ Close</button>
+        </div>
+        <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+    <!-- 2. Strategic -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-top">
+        <div class="card-number">02</div>
+        <div class="card-main">
+          <div class="card-title">Strategic</div>
+          <div class="card-desc">Spots patterns others miss. Generates paths forward and chooses the most effective one.</div>
+        </div>
+        <div class="card-game">
+          <div class="card-tag">🎮 Game</div>
+          <div class="card-value">The Binding of Isaac</div>
+          <div class="card-value-sub">Every run is a puzzle — read the board, build the path</div>
+        </div>
+        <div class="card-song">
+          <div class="card-tag">🎵 Track</div>
+          <div class="card-value">Cerebrum Dispersio</div>
+          <div class="card-value-sub">Afterbirth OST — slow, calculating, building tension</div>
+          <button class="play-btn" onclick="togglePlayer(this, '231907028')">
+            <svg viewBox="0 0 16 16"><path d="M3 2l11 6-11 6z"/></svg>
+            Play Track
+          </button>
+        </div>
+      </div>
+      <div class="card-player">
+        <div class="player-header">
+          <span class="player-label">🎵 Now Playing</span>
+          <button class="close-btn" onclick="closePlayer(this)">✕ Close</button>
+        </div>
+        <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+    <!-- 3. Learner -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-top">
+        <div class="card-number">03</div>
+        <div class="card-main">
+          <div class="card-title">Learner</div>
+          <div class="card-desc">The process of learning excites more than the outcome. Mastery through iteration.</div>
+        </div>
+        <div class="card-game">
+          <div class="card-tag">🎮 Game</div>
+          <div class="card-value">Elden Ring</div>
+          <div class="card-value-sub">Die, analyze, adapt — no shortcuts, just growth</div>
+        </div>
+        <div class="card-song">
+          <div class="card-tag">🎵 Track</div>
+          <div class="card-value">Elden Ring Main Theme</div>
+          <div class="card-value-sub">OST — the weight and wonder of the pursuit</div>
+          <button class="play-btn" onclick="togglePlayer(this, '1157403727')">
+            <svg viewBox="0 0 16 16"><path d="M3 2l11 6-11 6z"/></svg>
+            Play Track
+          </button>
+        </div>
+      </div>
+      <div class="card-player">
+        <div class="player-header">
+          <span class="player-label">🎵 Now Playing</span>
+          <button class="close-btn" onclick="closePlayer(this)">✕ Close</button>
+        </div>
+        <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+    <!-- 4. Analytical -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-top">
+        <div class="card-number">04</div>
+        <div class="card-main">
+          <div class="card-title">Analytical</div>
+          <div class="card-desc">Searches for reasons and causes. Considers every factor before forming a conclusion.</div>
+        </div>
+        <div class="card-game">
+          <div class="card-tag">🎮 Game</div>
+          <div class="card-value">Balatro</div>
+          <div class="card-value-sub">Probability, optimization & system mastery</div>
+        </div>
+        <div class="card-song">
+          <div class="card-tag">🎵 Track</div>
+          <div class="card-value">Balatro Main Theme</div>
+          <div class="card-value-sub">OST — calculated beneath the surface calm</div>
+          <button class="play-btn" onclick="togglePlayer(this, '1754509170')">
+            <svg viewBox="0 0 16 16"><path d="M3 2l11 6-11 6z"/></svg>
+            Play Track
+          </button>
+        </div>
+      </div>
+      <div class="card-player">
+        <div class="player-header">
+          <span class="player-label">🎵 Now Playing</span>
+          <button class="close-btn" onclick="closePlayer(this)">✕ Close</button>
+        </div>
+        <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+    <!-- 5. Adaptability -->
+    <div class="card">
+      <div class="card-accent-bar"></div>
+      <div class="card-top">
+        <div class="card-number">05</div>
+        <div class="card-main">
+          <div class="card-title">Adaptability</div>
+          <div class="card-desc">Goes with the flow. Discovers the future one day at a time without needing a fixed plan.</div>
+        </div>
+        <div class="card-game">
+          <div class="card-tag">🎮 Game</div>
+          <div class="card-value">Webfishing</div>
+          <div class="card-value-sub">Low-stakes, present-tense, just exist & see what comes</div>
+        </div>
+        <div class="card-song">
+          <div class="card-tag">🎵 Track</div>
+          <div class="card-value">Webfishing Title Theme</div>
+          <div class="card-value-sub">OST — no urgency, no agenda, just flow</div>
+          <button class="play-btn" onclick="togglePlayer(this, '1952092059')">
+            <svg viewBox="0 0 16 16"><path d="M3 2l11 6-11 6z"/></svg>
+            Play Track
+          </button>
+        </div>
+      </div>
+      <div class="card-player">
+        <div class="player-header">
+          <span class="player-label">🎵 Now Playing</span>
+          <button class="close-btn" onclick="closePlayer(this)">✕ Close</button>
+        </div>
+        <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="insight-block">
+    <div class="insight-label">Personal Take</div>
+    <div class="insight-text">
+      These five aren't random — they form a pattern. I go <strong>deep, not wide.</strong> Whether it's a friendship, a game, or a subject I'm curious about, I invest fully and build real understanding over time. <strong>Relator</strong> and <strong>Adaptability</strong> hold the tension between loyalty and flexibility — I commit hard to the right people and things, but I don't break when circumstances shift. <strong>Strategic</strong>, <strong>Analytical</strong>, and <strong>Learner</strong> all feed each other: I learn to understand systems, analyze to find what's true, and strategize to act on it effectively. The through-line is <strong>mastery through genuine engagement</strong> — not performance, not shortcuts.
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-text">Gallup CliftonStrengths Assessment</div>
+    <div class="footer-line"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--c1)"></div>
+      <div class="legend-label">Relator — Relationship Building</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--c2)"></div>
+      <div class="legend-label">Strategic — Strategic Thinking</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--c3)"></div>
+      <div class="legend-label">Learner — Strategic Thinking</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--c4)"></div>
+      <div class="legend-label">Analytical — Strategic Thinking</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--c5)"></div>
+      <div class="legend-label">Adaptability — Relationship Building</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var activeCard = null;
+
+  function togglePlayer(btn, trackId) {
+    var card = btn.closest('.card');
+    var player = card.querySelector('.card-player');
+    var iframe = player.querySelector('iframe');
+
+    if (player.classList.contains('active')) {
+      closePlayerPanel(card);
+      return;
+    }
+
+    if (activeCard && activeCard !== card) {
+      closePlayerPanel(activeCard);
+    }
+
+    iframe.src = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' + trackId + '&color=%23' + getComputedStyle(card).getPropertyValue('--accent').trim().replace('#','') + '&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false';
+    player.classList.add('active');
+    btn.innerHTML = '<svg viewBox="0 0 16 16" style="width:10px;height:10px;fill:currentColor"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg> Stop';
+    activeCard = card;
+
+    setTimeout(function() { card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
+  }
+
+  function closePlayer(btn) {
+    closePlayerPanel(btn.closest('.card'));
+  }
+
+  function closePlayerPanel(card) {
+    var player = card.querySelector('.card-player');
+    var iframe = player.querySelector('iframe');
+    var btn = card.querySelector('.play-btn');
+    iframe.src = '';
+    player.classList.remove('active');
+    btn.innerHTML = '<svg viewBox="0 0 16 16" style="width:10px;height:10px;fill:currentColor"><path d="M3 2l11 6-11 6z"/></svg> Play Track';
+    if (activeCard === card) activeCard = null;
+  }
+</script>
+</body>
+</html>
