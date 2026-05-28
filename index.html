@@ -43,6 +43,8 @@
     max-width: 960px;
     margin: 0 auto;
     padding: 60px 32px 80px;
+    position: relative;
+    z-index: 1;
   }
 
   .header {
@@ -106,6 +108,7 @@
   }
 
   .card {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--border);
     position: relative;
@@ -131,10 +134,32 @@
   }
 
   .card-top {
-    display: grid;
-    grid-template-columns: 48px 1fr 1fr 1fr;
-    align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
     padding: 28px 32px;
+    gap: 0;
+  }
+
+  .card-number {
+    flex: 0 0 48px;
+  }
+
+  .card-main {
+    flex: 1 1 0;
+    padding: 0 24px 0 8px;
+  }
+
+  .card-game {
+    flex: 1 1 0;
+    padding: 0 16px;
+    border-left: 1px solid var(--border);
+  }
+
+  .card-song {
+    flex: 1 1 0;
+    padding: 0 16px;
+    border-left: 1px solid var(--border);
   }
 
   .card-number {
@@ -341,6 +366,79 @@
     text-transform: uppercase;
   }
 
+  /* Talking points */
+  .card-notes {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 20px 32px 24px 72px;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .card-notes.active { display: block; }
+
+  .card-notes-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    opacity: 0.8;
+  }
+
+  .card-notes-text {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 700px;
+  }
+
+  .card-notes-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .notes-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 5px 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .notes-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Stickers */
+  .sticker {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .bg-stickers {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bg-icon {
+    position: absolute;
+    pointer-events: none;
+  }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -370,6 +468,156 @@
 </style>
 </head>
 <body>
+
+<!-- Background stickers -->
+<div class="bg-stickers" aria-hidden="true">
+
+  <!-- GW2: Dragon wing / two-headed dragon logo shape, top left -->
+  <svg class="bg-icon" style="top:4%;left:1.5%;transform:rotate(-10deg);width:90px;height:90px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- GW2-style dragon head silhouette -->
+    <g opacity="0.13" fill="white">
+      <!-- Main dragon head -->
+      <path d="M50 10 C35 10 20 20 18 35 C16 45 22 52 28 55 C25 60 20 68 22 75 C24 80 30 78 34 74 C36 78 40 82 46 83 C42 76 44 70 50 67 C56 70 58 76 54 83 C60 82 64 78 66 74 C70 78 76 80 78 75 C80 68 75 60 72 55 C78 52 84 45 82 35 C80 20 65 10 50 10Z"/>
+      <!-- Crown spikes -->
+      <polygon points="50,2 46,12 50,10 54,12" />
+      <polygon points="38,5 36,15 40,12 42,16" />
+      <polygon points="62,5 58,16 62,12 64,15" />
+      <!-- Eyes -->
+      <circle cx="38" cy="35" r="4" fill="#0a0a0f"/>
+      <circle cx="62" cy="35" r="4" fill="#0a0a0f"/>
+      <circle cx="39" cy="34" r="1.5" fill="white"/>
+      <circle cx="63" cy="34" r="1.5" fill="white"/>
+      <!-- Crossed swords below -->
+      <line x1="30" y1="88" x2="70" y2="98" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      <line x1="70" y1="88" x2="30" y2="98" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      <rect x="28" y="91" width="14" height="2.5" rx="1.2" transform="rotate(25,35,92)" fill="white"/>
+      <rect x="58" y="91" width="14" height="2.5" rx="1.2" transform="rotate(-25,65,92)" fill="white"/>
+    </g>
+  </svg>
+
+  <!-- Binding of Isaac: Isaac crying face, right side upper -->
+  <svg class="bg-icon" style="top:18%;right:1.5%;transform:rotate(14deg);width:80px;height:80px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.13" fill="white">
+      <!-- Head shape - Isaac's bald round head -->
+      <circle cx="50" cy="44" r="30" />
+      <!-- Eyes - large and sad -->
+      <ellipse cx="38" cy="40" rx="8" ry="9" fill="#0a0a0f"/>
+      <ellipse cx="62" cy="40" rx="8" ry="9" fill="#0a0a0f"/>
+      <!-- Pupils -->
+      <circle cx="40" cy="42" r="4" fill="white"/>
+      <circle cx="64" cy="42" r="4" fill="white"/>
+      <!-- Tear drops -->
+      <ellipse cx="30" cy="54" rx="3" ry="5" fill="white" opacity="0.8"/>
+      <ellipse cx="70" cy="54" rx="3" ry="5" fill="white" opacity="0.8"/>
+      <ellipse cx="26" cy="62" rx="2.5" ry="4" fill="white" opacity="0.5"/>
+      <ellipse cx="74" cy="62" rx="2.5" ry="4" fill="white" opacity="0.5"/>
+      <!-- Sad mouth -->
+      <path d="M40 58 Q50 52 60 58" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Hair wisps - Isaac has a few sad hairs -->
+      <path d="M36 14 Q32 8 34 4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M50 12 Q50 5 52 2" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M64 14 Q68 8 66 4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>
+
+  <!-- Dark Souls: Bonfire silhouette, left mid -->
+  <svg class="bg-icon" style="top:42%;left:1%;transform:rotate(-6deg);width:70px;height:95px;" viewBox="0 0 70 95" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.13" fill="white">
+      <!-- Sword blade -->
+      <polygon points="35,2 31,52 39,52" />
+      <!-- Crossguard -->
+      <rect x="22" y="46" width="26" height="5" rx="2.5"/>
+      <!-- Handle -->
+      <rect x="32" y="51" width="6" height="12" rx="3"/>
+      <!-- Pommel -->
+      <ellipse cx="35" cy="65" rx="5" ry="4"/>
+      <!-- Bonfire logs - X shape -->
+      <rect x="18" y="64" width="34" height="6" rx="3" transform="rotate(30,35,67)"/>
+      <rect x="18" y="64" width="34" height="6" rx="3" transform="rotate(-30,35,67)"/>
+      <!-- Flame body -->
+      <ellipse cx="35" cy="52" rx="11" ry="16"/>
+      <!-- Inner flame -->
+      <ellipse cx="33" cy="54" rx="6" ry="10" fill="#0a0a0f" opacity="0.4"/>
+      <!-- Flame tips -->
+      <path d="M28 38 Q24 28 28 20 Q30 30 35 28 Q32 36 28 38Z"/>
+      <path d="M42 36 Q46 26 42 18 Q40 28 35 28 Q38 34 42 36Z"/>
+      <path d="M35 34 Q33 24 35 16 Q37 24 35 34Z"/>
+      <!-- Base rocks -->
+      <ellipse cx="35" cy="76" rx="18" ry="6"/>
+      <ellipse cx="20" cy="80" rx="8" ry="4"/>
+      <ellipse cx="50" cy="80" rx="8" ry="4"/>
+    </g>
+  </svg>
+
+  <!-- Balatro: Playing card with joker pattern, right mid-lower -->
+  <svg class="bg-icon" style="top:58%;right:1.5%;transform:rotate(-16deg);width:58px;height:80px;" viewBox="0 0 58 80" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.13">
+      <!-- Card body -->
+      <rect x="2" y="2" width="54" height="76" rx="6" fill="white"/>
+      <!-- Card border detail -->
+      <rect x="6" y="6" width="46" height="68" rx="4" fill="none" stroke="#0a0a0f" stroke-width="1.5"/>
+      <!-- Joker face - top left -->
+      <text x="7" y="20" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#0a0a0f">J</text>
+      <!-- Suit pip top -->
+      <path d="M29,10 C29,6 23,6 23,11 C23,15 29,18 29,18 C29,18 35,15 35,11 C35,6 29,6 29,10Z" fill="#0a0a0f"/>
+      <!-- Center diamond -->
+      <polygon points="29,28 36,38 29,48 22,38" fill="#0a0a0f"/>
+      <!-- Joker bells / hat suggestion -->
+      <circle cx="22" cy="58" r="5" fill="#0a0a0f"/>
+      <circle cx="36" cy="58" r="5" fill="#0a0a0f"/>
+      <path d="M18 58 Q29 52 40 58" stroke="#0a0a0f" stroke-width="2" fill="none"/>
+      <!-- Rotated J bottom -->
+      <text x="44" y="72" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#0a0a0f" transform="rotate(180,47,65)">J</text>
+    </g>
+  </svg>
+
+  <!-- Webfishing: Cute fish with big eyes, bottom left -->
+  <svg class="bg-icon" style="bottom:10%;left:1.5%;transform:rotate(8deg);width:100px;height:72px;" viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.13" fill="white">
+      <!-- Tail fin -->
+      <path d="M72 36 C82 22 96 18 96 36 C96 54 82 50 72 36Z"/>
+      <!-- Body -->
+      <ellipse cx="44" cy="36" rx="30" ry="20"/>
+      <!-- Top fin -->
+      <path d="M30 18 C36 8 50 10 52 18" stroke="white" stroke-width="2" fill="white"/>
+      <!-- Bottom fin -->
+      <path d="M36 54 C40 62 50 62 52 54" stroke="white" stroke-width="2" fill="white"/>
+      <!-- Eye - big and cute Webfishing style -->
+      <circle cx="22" cy="32" r="10" fill="white"/>
+      <circle cx="22" cy="32" r="7" fill="#0a0a0f"/>
+      <circle cx="19" cy="29" r="3" fill="white"/>
+      <circle cx="25" cy="35" r="1.5" fill="white"/>
+      <!-- Mouth smile -->
+      <path d="M12 40 Q16 46 22 43" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- Scales detail -->
+      <path d="M40 22 Q50 26 58 22" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" fill="none"/>
+      <path d="M44 28 Q54 32 62 28" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" fill="none"/>
+      <!-- Fishing line + bobber above -->
+      <line x1="60" y1="4" x2="60" y2="16" stroke="white" stroke-width="1.5"/>
+      <circle cx="60" cy="10" r="6" fill="white"/>
+      <rect x="59" y="4" width="2" height="6" fill="#0a0a0f" opacity="0.5"/>
+    </g>
+  </svg>
+
+  <!-- Extra: small floating sparkle/star elements -->
+  <svg class="bg-icon" style="top:33%;left:3%;transform:rotate(0deg);width:24px;height:24px;opacity:0.08;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
+  </svg>
+
+  <svg class="bg-icon" style="top:65%;right:3%;transform:rotate(20deg);width:20px;height:20px;opacity:0.08;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
+  </svg>
+
+  <svg class="bg-icon" style="top:12%;left:5%;transform:rotate(10deg);width:16px;height:16px;opacity:0.07;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
+  </svg>
+
+  <svg class="bg-icon" style="bottom:25%;right:4%;transform:rotate(-8deg);width:18px;height:18px;opacity:0.07;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
+  </svg>
+
+</div>
+
 <div class="page">
 
   <header class="header">
@@ -389,6 +637,9 @@
         <div class="card-main">
           <div class="card-title">Relator</div>
           <div class="card-desc">Deep satisfaction in working hard with others toward a shared goal. Depth over breadth — always.</div>
+        </div>
+        <div style="padding: 0 0 0 8px; display:flex; align-items:center;">
+          <button class="notes-btn" onclick="toggleNotes('relator')">📋 Talking Points</button>
         </div>
         <div class="card-game">
           <div class="card-tag">🎮 Game</div>
@@ -412,6 +663,10 @@
         </div>
         <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
       </div>
+      <div class="card-notes" id="notes-relator">
+        <div class="card-notes-label">📋 Talking Points</div>
+        <div class="card-notes-text">Relator is the strength I feel most clearly. I don't do surface-level. I'd rather have a small circle I actually know deeply than a wide one I barely know. Guild Wars 2 is more than a game to me — I met my wife there. This strength shows up in everything. I go all in on people or I don't bother. It connects to Adaptability because the people I'm loyal to keep me grounded, and to Learner because I invest in people the same way I invest in things I care about.</div>
+      </div>
     </div>
 
     <!-- 2. Strategic -->
@@ -422,6 +677,9 @@
         <div class="card-main">
           <div class="card-title">Strategic</div>
           <div class="card-desc">Spots patterns others miss. Generates paths forward and chooses the most effective one.</div>
+        </div>
+        <div style="padding: 0 0 0 8px; display:flex; align-items:center;">
+          <button class="notes-btn" onclick="toggleNotes('strategic')">📋 Talking Points</button>
         </div>
         <div class="card-game">
           <div class="card-tag">🎮 Game</div>
@@ -445,6 +703,10 @@
         </div>
         <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
       </div>
+      <div class="card-notes" id="notes-strategic">
+        <div class="card-notes-label">📋 Talking Points</div>
+        <div class="card-notes-text">Strategic means I read situations and spot patterns fast, sometimes before I mean to. The downside is I can overthink things that don't need it and over-plan to the point of slowing myself down. Binding of Isaac fits because every run asks you to evaluate what you have and commit to a path even when it isn't perfect. Strategic and Analytical feed each other, which is mostly good. But when both fire at once, decisions take longer than they should.</div>
+      </div>
     </div>
 
     <!-- 3. Learner -->
@@ -456,16 +718,19 @@
           <div class="card-title">Learner</div>
           <div class="card-desc">The process of learning excites more than the outcome. Mastery through iteration.</div>
         </div>
+        <div style="padding: 0 0 0 8px; display:flex; align-items:center;">
+          <button class="notes-btn" onclick="toggleNotes('learner')">📋 Talking Points</button>
+        </div>
         <div class="card-game">
           <div class="card-tag">🎮 Game</div>
-          <div class="card-value">Elden Ring</div>
-          <div class="card-value-sub">Die, analyze, adapt — no shortcuts, just growth</div>
+          <div class="card-value">Dark Souls</div>
+          <div class="card-value-sub">The original — die, learn, adapt, repeat</div>
         </div>
         <div class="card-song">
           <div class="card-tag">🎵 Track</div>
-          <div class="card-value">Elden Ring Main Theme</div>
-          <div class="card-value-sub">OST — the weight and wonder of the pursuit</div>
-          <button class="play-btn" onclick="togglePlayer(this, '1157403727')">
+          <div class="card-value">Firelink Shrine</div>
+          <div class="card-value-sub">DS1 OST — where you regrouped and pushed on</div>
+          <button class="play-btn" onclick="togglePlayer(this, '274421926')">
             <svg viewBox="0 0 16 16"><path d="M3 2l11 6-11 6z"/></svg>
             Play Track
           </button>
@@ -478,6 +743,10 @@
         </div>
         <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
       </div>
+      <div class="card-notes" id="notes-learner">
+        <div class="card-notes-label">📋 Talking Points</div>
+        <div class="card-notes-text">For me Learner is about the process, not the outcome. I enjoy understanding how things work whether that's a system, a concept, or a skill. Dark Souls is the right game because it teaches entirely through failure. No shortcuts, no hand-holding. Firelink Shrine is the sound of sitting with that failure and deciding to go again. Learner feeds Strategic and Analytical. Without it, the other two wouldn't have much to work with.</div>
+      </div>
     </div>
 
     <!-- 4. Analytical -->
@@ -488,6 +757,9 @@
         <div class="card-main">
           <div class="card-title">Analytical</div>
           <div class="card-desc">Searches for reasons and causes. Considers every factor before forming a conclusion.</div>
+        </div>
+        <div style="padding: 0 0 0 8px; display:flex; align-items:center;">
+          <button class="notes-btn" onclick="toggleNotes('analytical')">📋 Talking Points</button>
         </div>
         <div class="card-game">
           <div class="card-tag">🎮 Game</div>
@@ -511,6 +783,10 @@
         </div>
         <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
       </div>
+      <div class="card-notes" id="notes-analytical">
+        <div class="card-notes-label">📋 Talking Points</div>
+        <div class="card-notes-text">Analytical shows up in everything I do. Work, decisions, even reading people. I want the full picture before I act. The dark side is decisions take longer than they should and I can overanalyze before I even start. I still struggle with impulsivity on top of that. Balatro fits because you have to evaluate odds and synergies and think before every move. Analytical and Strategic together are my biggest asset and my biggest source of overthinking.</div>
+      </div>
     </div>
 
     <!-- 5. Adaptability -->
@@ -521,6 +797,9 @@
         <div class="card-main">
           <div class="card-title">Adaptability</div>
           <div class="card-desc">Goes with the flow. Discovers the future one day at a time without needing a fixed plan.</div>
+        </div>
+        <div style="padding: 0 0 0 8px; display:flex; align-items:center;">
+          <button class="notes-btn" onclick="toggleNotes('adaptability')">📋 Talking Points</button>
         </div>
         <div class="card-game">
           <div class="card-tag">🎮 Game</div>
@@ -543,6 +822,10 @@
           <button class="close-btn" onclick="closePlayer(this)">✕ Close</button>
         </div>
         <iframe scrolling="no" frameborder="no" allow="autoplay"></iframe>
+      </div>
+      <div class="card-notes" id="notes-adaptability">
+        <div class="card-notes-label">📋 Talking Points</div>
+        <div class="card-notes-text">On the surface I'm easygoing and handle change without much drama. But I can be stubborn in my beliefs and actual internal change takes more work than it looks. I adapt best when I can see the facts. Webfishing represents what I'm working toward with this strength. No urgency, no agenda, just present. It connects to Relator because the people I'm close to help anchor me when I'm resisting change I probably need.</div>
       </div>
     </div>
 
@@ -613,6 +896,19 @@
 
   function closePlayer(btn) {
     closePlayerPanel(btn.closest('.card'));
+  }
+
+  function toggleNotes(key) {
+    var notes = document.getElementById('notes-' + key);
+    notes.classList.toggle('active');
+    var btn = notes.previousElementSibling;
+    // find the button
+    var btns = document.querySelectorAll('.notes-btn');
+    btns.forEach(function(b) {
+      if (b.getAttribute('onclick') === "toggleNotes('" + key + "')") {
+        b.textContent = notes.classList.contains('active') ? '📋 Hide Notes' : '📋 Talking Points';
+      }
+    });
   }
 
   function closePlayerPanel(card) {
