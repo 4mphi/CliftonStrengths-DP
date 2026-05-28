@@ -476,19 +476,58 @@
     to   { opacity: 1; transform: translateX(0); }
   }
 
-  @media (max-width: 680px) {
-    .card-top {
-      grid-template-columns: 40px 1fr;
-      grid-template-rows: auto auto auto;
-      gap: 12px;
-      padding: 20px 20px 20px 16px;
-    }
-    .card-number { font-size: 28px; }
-    .card-main { grid-column: 2; padding: 0; }
-    .card-game { grid-column: 1 / -1; border-left: none; border-top: 1px solid var(--border); padding: 12px 0 0; }
-    .card-song { grid-column: 1 / -1; border-left: none; padding: 0; }
+  @media (max-width: 768px) {
+    .page { padding: 40px 16px 60px; }
     .header-line { display: none; }
-    .page { padding: 40px 20px 60px; }
+    .header-name { font-size: clamp(48px, 18vw, 90px); }
+
+    .card-top {
+      flex-direction: column;
+      padding: 20px 20px 20px 20px;
+      gap: 12px;
+    }
+
+    .card-number {
+      font-size: 28px;
+      padding-left: 4px;
+    }
+
+    .card-main {
+      flex: unset;
+      width: 100%;
+      padding: 0;
+    }
+
+    .card-game {
+      flex: unset;
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--border);
+      padding: 12px 0 0;
+    }
+
+    .card-song {
+      flex: unset;
+      width: 100%;
+      border-left: none;
+      padding: 0;
+    }
+
+    .card-notes {
+      padding: 16px 20px 20px 20px;
+    }
+
+    .insight-block {
+      padding: 24px 20px;
+    }
+
+    .legend {
+      gap: 14px;
+    }
+
+    .card-player iframe {
+      height: 140px;
+    }
   }
 </style>
 </head>
