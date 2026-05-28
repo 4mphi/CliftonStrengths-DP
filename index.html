@@ -439,6 +439,31 @@
     pointer-events: none;
   }
 
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0px) rotate(-10deg); }
+    50% { transform: translateY(-12px) rotate(-10deg); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(14deg); }
+    50% { transform: translateY(-10px) rotate(14deg); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translateY(0px) rotate(-6deg); }
+    50% { transform: translateY(-14px) rotate(-6deg); }
+  }
+  @keyframes float4 {
+    0%, 100% { transform: translateY(0px) rotate(-16deg); }
+    50% { transform: translateY(-9px) rotate(-16deg); }
+  }
+  @keyframes float5 {
+    0%, 100% { transform: translateY(0px) rotate(8deg); }
+    50% { transform: translateY(-11px) rotate(8deg); }
+  }
+  @keyframes floatStar {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-8px) scale(1.1); }
+  }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -473,7 +498,7 @@
 <div class="bg-stickers" aria-hidden="true">
 
   <!-- GW2: Dragon wing / two-headed dragon logo shape, top left -->
-  <svg class="bg-icon" style="top:4%;left:1.5%;transform:rotate(-10deg);width:90px;height:90px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:4%;left:1.5%;width:90px;height:90px;animation:float1 6s ease-in-out infinite;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <!-- GW2-style dragon head silhouette -->
     <g opacity="0.13" fill="white">
       <!-- Main dragon head -->
@@ -496,7 +521,7 @@
   </svg>
 
   <!-- Binding of Isaac: Isaac crying face, right side upper -->
-  <svg class="bg-icon" style="top:18%;right:1.5%;transform:rotate(14deg);width:80px;height:80px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:18%;right:1.5%;width:80px;height:80px;animation:float2 7s ease-in-out infinite 1s;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g opacity="0.13" fill="white">
       <!-- Head shape - Isaac's bald round head -->
       <circle cx="50" cy="44" r="30" />
@@ -521,7 +546,7 @@
   </svg>
 
   <!-- Dark Souls: Bonfire silhouette, left mid -->
-  <svg class="bg-icon" style="top:42%;left:1%;transform:rotate(-6deg);width:70px;height:95px;" viewBox="0 0 70 95" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:42%;left:1%;width:70px;height:95px;animation:float3 8s ease-in-out infinite 0.5s;" viewBox="0 0 70 95" xmlns="http://www.w3.org/2000/svg">
     <g opacity="0.13" fill="white">
       <!-- Sword blade -->
       <polygon points="35,2 31,52 39,52" />
@@ -550,7 +575,7 @@
   </svg>
 
   <!-- Balatro: Playing card with joker pattern, right mid-lower -->
-  <svg class="bg-icon" style="top:58%;right:1.5%;transform:rotate(-16deg);width:58px;height:80px;" viewBox="0 0 58 80" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:58%;right:1.5%;width:58px;height:80px;animation:float4 6.5s ease-in-out infinite 1.5s;" viewBox="0 0 58 80" xmlns="http://www.w3.org/2000/svg">
     <g opacity="0.13">
       <!-- Card body -->
       <rect x="2" y="2" width="54" height="76" rx="6" fill="white"/>
@@ -572,7 +597,7 @@
   </svg>
 
   <!-- Webfishing: Cute fish with big eyes, bottom left -->
-  <svg class="bg-icon" style="bottom:10%;left:1.5%;transform:rotate(8deg);width:100px;height:72px;" viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="bottom:10%;left:1.5%;width:100px;height:72px;animation:float5 7.5s ease-in-out infinite 0.8s;" viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg">
     <g opacity="0.13" fill="white">
       <!-- Tail fin -->
       <path d="M72 36 C82 22 96 18 96 36 C96 54 82 50 72 36Z"/>
@@ -600,19 +625,19 @@
   </svg>
 
   <!-- Extra: small floating sparkle/star elements -->
-  <svg class="bg-icon" style="top:33%;left:3%;transform:rotate(0deg);width:24px;height:24px;opacity:0.08;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:33%;left:3%;width:24px;height:24px;opacity:0.08;animation:floatStar 5s ease-in-out infinite 0.3s;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
   </svg>
 
-  <svg class="bg-icon" style="top:65%;right:3%;transform:rotate(20deg);width:20px;height:20px;opacity:0.08;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:65%;right:3%;width:20px;height:20px;opacity:0.08;animation:floatStar 6s ease-in-out infinite 1.2s;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
   </svg>
 
-  <svg class="bg-icon" style="top:12%;left:5%;transform:rotate(10deg);width:16px;height:16px;opacity:0.07;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="top:12%;left:5%;width:16px;height:16px;opacity:0.07;animation:floatStar 4.5s ease-in-out infinite 0.7s;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
   </svg>
 
-  <svg class="bg-icon" style="bottom:25%;right:4%;transform:rotate(-8deg);width:18px;height:18px;opacity:0.07;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg class="bg-icon" style="bottom:25%;right:4%;width:18px;height:18px;opacity:0.07;animation:floatStar 5.5s ease-in-out infinite 2s;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2 L13.5 9 L20 12 L13.5 15 L12 22 L10.5 15 L4 12 L10.5 9 Z" fill="white"/>
   </svg>
 
